@@ -9,10 +9,28 @@ const seperateLastLine = function(lastLine) {
     return [...lastLineArray, ...stateZipSplit]
 }
 
+const getFullAddressAsObj = function(fullAddressArr, hasSecondAddressLine) {
+    const fullAddress = {email: 'danny.personalizationco@gmail.com'}
+    
+    if(hasSecondAddressLine) {
+        fullAddress.address2 = fullAddressArr.splice(2, 1)[0]
+    }
+    
+    fullAddress.name = fullAddressArr[0]
+    fullAddress.address1 = fullAddressArr[1]
+    fullAddress.city = fullAddressArr[2]
+    fullAddress.state = fullAddressArr[3]
+    fullAddress.zip = fullAddressArr[4]
+    
+    return fullAddress
+}
+
 const handlePaste = function(userText) {
     const seperatedText = userText.split('\n')
-    const lastLine = hasSecondAddressLine(seperatedText) ? seperateLastLine(seperatedText.splice(3)) : seperateLastLine(seperatedText.splice(2))
-    const fullAddress = [...seperatedText, ...lastLine]
+    const hasSecondAddress = hasSecondAddressLine(seperatedText)
+    const lastLine = hasSecondAddress ? seperateLastLine(seperatedText.splice(3)) : seperateLastLine(seperatedText.splice(2))
+    
+    const fullAddress = getFullAddressAsObj([...seperatedText, ...lastLine], hasSecondAddress)
 
     console.log(fullAddress)
 }
