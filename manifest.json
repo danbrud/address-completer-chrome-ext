@@ -2,12 +2,16 @@
     "name": "Address Autocompleter",
     "version": "1.0",
     "description": "For CG Pro Prints!",
-    "permissions": ["declarativeContent", "storage"],
+    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
+    "content_scripts": [{
+        "js": ["jquery-3.4.1.min.js", "pageManu.js"],
+        "matches": ["https://integrations.cgproprints.com/*"]
+    }],
+    "permissions": ["activeTab", "declarativeContent", "storage"],
     "background": {
         "scripts": ["background.js"],
         "persistent": false
     },
-    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
     "page_action": {
         "default_popup": "popup.html",
         "default_icon": {
