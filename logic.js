@@ -27,6 +27,10 @@ const getFullAddressAsObj = function(fullAddressArr, hasSecondAddressLine) {
 
 const handlePaste = function(userText) {
     const seperatedText = userText.split('\n')
+
+    //Make sure someone adds a real address
+    if(seperatedText.length < 3) { return }
+
     const hasSecondAddress = hasSecondAddressLine(seperatedText)
     const lastLine = hasSecondAddress ? seperateLastLine(seperatedText.splice(3)) : seperateLastLine(seperatedText.splice(2))
     
